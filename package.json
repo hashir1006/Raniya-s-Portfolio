@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "flutter build web --release",
+    "flutter:dev": "flutter run -d chrome",
+    "flutter:build": "flutter build web --release",
+    "flutter:analyze": "flutter analyze",
+    "flutter:test": "flutter test",
+    "next:dev": "next dev",
+    "next:build": "next build",
     "lint": "eslint"
   },
   "dependencies": {

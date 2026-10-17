@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "echo 'Flutter Web static bundle ready'",
+    "build": "bash ./vercel-build.sh",
+    "vercel-build": "bash ./vercel-build.sh",
     "flutter:dev": "flutter run -d chrome",
     "flutter:build": "flutter build web --release",
     "flutter:analyze": "flutter analyze",

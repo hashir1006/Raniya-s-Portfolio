@@ -18,13 +18,23 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
   const shouldReduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [showReplay, setShowReplay] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     const timer = setTimeout(() => {
       setShowReplay(true);
-    }, 2800);
-    return () => clearTimeout(timer);
+    }, 2600);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      clearTimeout(timer);
+    };
   }, [animationKey]);
 
   // Luxury easing curve for cinematic motion
@@ -34,16 +44,27 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
     <section 
       id="hero"
       key={animationKey}
-      className="relative w-full h-screen min-h-[680px] max-h-[1200px] overflow-hidden bg-black select-none"
+      className="relative w-full h-screen min-h-[640px] max-h-[1200px] overflow-hidden bg-black select-none"
       aria-label="Hero Section"
     >
       {/* ======================================================== */}
-      {/* 1. RIGHT PANEL (Pure Black #000000)                      */}
+      {/* TOP NAVIGATION (z-40 for full unobstructed layering)    */}
+      {/* ======================================================== */}
+      <Navbar isAnimated={!shouldReduceMotion} />
+
+      {/* ======================================================== */}
+      {/* 1. RIGHT / BOTTOM PANEL (Pure Black #000000)             */}
       {/* ======================================================== */}
       <motion.div
-        className="absolute inset-0 w-full h-full bg-black z-0 flex items-center justify-end"
-        initial={shouldReduceMotion ? { x: 0 } : { x: "100%" }}
-        animate={{ x: "0%" }}
+        className="absolute inset-0 w-full h-full bg-black z-0 flex items-end justify-center md:justify-end"
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : isMobile
+            ? { y: "100%", opacity: 0 }
+            : { x: "100%", opacity: 0 }
+        }
+        animate={isMobile ? { y: "0%", opacity: 1 } : { x: "0%", opacity: 1 }}
         transition={{
           duration: shouldReduceMotion ? 0 : 1.35,
           delay: 0.15,
@@ -52,9 +73,6 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
       >
         {/* Right Panel Background Ambience */}
         <div className="absolute inset-0 bg-gradient-to-bl from-white/[0.02] via-transparent to-transparent pointer-events-none" />
-
-        {/* Navigation positioned at top of right panel */}
-        <Navbar isAnimated={!shouldReduceMotion} />
 
         {/* Portrait of Raniya Kazi positioned toward center-right, anchored to bottom */}
         <Portrait
@@ -65,40 +83,27 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
       </motion.div>
 
       {/* ======================================================== */}
-      {/* 2. LEFT PANEL (Soft Concrete Light Gray #D7D8D6)          */}
-      {/* Slanted right edge forming the diagonal divider           */}
+      {/* 2. LEFT / TOP PANEL (Soft Concrete Light Gray #D7D8D6)    */}
+      {/* Slanted edge forming the diagonal divider                 */}
       {/* ======================================================== */}
       <motion.div
-        className="absolute inset-0 w-full h-full bg-[#D7D8D6] z-10 overflow-hidden shadow-[10px_0_35px_rgba(0,0,0,0.5)]"
-        style={{
-          // Diagonal divider matching reference:
-          // Top: 50.5% width, Bottom: 41.5% width (creating ~5.5° diagonal)
-          clipPath: "polygon(0 0, 50.5vw 0, 41.5vw 100%, 0 100%)",
-        }}
-        initial={shouldReduceMotion ? { x: 0 } : { x: "-100%" }}
-        animate={{ x: "0%" }}
+        className="absolute inset-x-0 top-0 h-[53vh] md:h-full md:inset-0 bg-[#D7D8D6] z-10 overflow-hidden split-hero-gray shadow-[10px_0_35px_rgba(0,0,0,0.5)]"
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : isMobile
+            ? { y: "-100%", opacity: 0 }
+            : { x: "-100%", opacity: 0 }
+        }
+        animate={isMobile ? { y: "0%", opacity: 1 } : { x: "0%", opacity: 1 }}
         transition={{
           duration: shouldReduceMotion ? 0 : 1.35,
           delay: 0.15,
           ease: panelEase,
         }}
       >
-        {/* Responsive clip-path override for tablet and mobile via CSS */}
-        <style jsx>{`
-          @media (max-width: 1024px) {
-            div {
-              clip-path: polygon(0 0, 56vw 0, 46vw 100%, 0 100%) !important;
-            }
-          }
-          @media (max-width: 768px) {
-            div {
-              clip-path: polygon(0 0, 100% 0, 100% 55%, 0 62%) !important;
-            }
-          }
-        `}</style>
-
         {/* Inner Content Container */}
-        <div className="relative w-full h-full flex flex-col justify-between p-6 sm:p-10 md:p-12 lg:p-16 xl:p-20 z-20">
+        <div className="relative w-full h-full flex flex-col justify-between p-5 sm:p-8 md:p-12 lg:p-16 xl:p-20 z-20">
           {/* Top: Logo */}
           <motion.div
             className="flex items-center"
@@ -110,15 +115,15 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
               ease: panelEase,
             }}
           >
-            <Logo size={46} className="text-black" />
+            <Logo size={42} className="text-black" />
           </motion.div>
 
           {/* Middle: Introduction & Name */}
-          <div className="my-auto max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[540px]">
+          <div className="my-auto max-w-[320px] sm:max-w-[400px] md:max-w-[440px] lg:max-w-[480px] xl:max-w-[540px]">
             {/* Greeting: "Hi, I am" */}
             <motion.p
-              className="text-lg sm:text-xl lg:text-2xl font-medium text-black/90 tracking-tight mb-2 sm:mb-3"
-              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+              className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-black/90 tracking-tight mb-1 sm:mb-2 md:mb-3"
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.6,
@@ -131,8 +136,8 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
 
             {/* Name: "Raniya Kazi" */}
             <motion.h1
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-[68px] 2xl:text-[76px] font-black tracking-[-0.035em] text-black leading-[1.05] mb-3 sm:mb-4 drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]"
-              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[68px] 2xl:text-[76px] font-black tracking-[-0.035em] text-black leading-[1.05] mb-2 sm:mb-3 md:mb-4 drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]"
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.75,
@@ -145,8 +150,8 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
 
             {/* Subtitle / Role */}
             <motion.p
-              className="text-sm sm:text-base lg:text-lg xl:text-[19px] font-semibold text-[#787a78] tracking-normal leading-relaxed"
-              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-[19px] font-semibold text-[#707270] tracking-normal leading-relaxed"
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.6,
@@ -160,7 +165,7 @@ export const Hero: React.FC<HeroProps> = ({ onReplay, animationKey = 0 }) => {
 
           {/* Bottom-left: 3 Tactile Social Buttons */}
           <motion.div
-            className="flex items-center gap-3.5 sm:gap-4 pt-4 sm:pt-6"
+            className="flex items-center gap-3 sm:gap-3.5 md:gap-4 pt-2 sm:pt-4 md:pt-6"
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{

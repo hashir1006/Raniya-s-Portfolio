@@ -27,7 +27,7 @@ export const Portrait: React.FC<PortraitProps> = ({
         with balanced margins from the diagonal divider and the right viewport edge.
       */}
       <motion.div
-        className="relative z-10 w-[78%] sm:w-[68%] md:w-[58%] lg:w-[50%] xl:w-[44%] 2xl:w-[40%] h-[68vh] sm:h-[72vh] md:h-[75vh] lg:h-[78vh] xl:h-[80vh] max-h-[820px] flex items-end justify-center lg:mr-[2vw] xl:mr-[4vw] 2xl:mr-[5vw] pointer-events-auto"
+        className="relative z-10 w-[92%] sm:w-[80%] md:w-[58%] lg:w-[50%] xl:w-[44%] 2xl:w-[40%] h-[46vh] sm:h-[48vh] md:h-[74vh] lg:h-[78vh] xl:h-[80vh] max-h-[820px] flex items-end justify-center md:mr-[2vw] lg:mr-[2vw] xl:mr-[4vw] 2xl:mr-[5vw] pointer-events-auto"
         initial={
           isAnimated
             ? { opacity: 0, y: 50, scale: 0.96 }

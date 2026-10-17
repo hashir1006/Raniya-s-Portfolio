@@ -43,3 +43,26 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
 }
+
+/* ======================================================== */
+/* Responsive Diagonal Split-Screen Utilities               */
+/* ======================================================== */
+
+/* Mobile (< 768px): Angled horizontal top divider */
+.split-hero-gray {
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%);
+}
+
+/* Tablet (768px - 1023px): Widened vertical diagonal divider */
+@media (min-width: 768px) {
+  .split-hero-gray {
+    clip-path: polygon(0 0, 58vw 0, 48vw 100%, 0 100%);
+  }
+}
+
+/* Desktop (>= 1024px): Exact Reference 50.5% -> 41.5% Diagonal */
+@media (min-width: 1024px) {
+  .split-hero-gray {
+    clip-path: polygon(0 0, 50.5vw 0, 41.5vw 100%, 0 100%);
+  }
+}

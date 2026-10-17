@@ -25,7 +25,7 @@ export const PortfolioSection: React.FC = () => {
 
         {/* Project Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {portfolioData.projects.map((project, idx) => (
+          {(portfolioData.projects || []).map((project, idx) => (
             <div
               key={project.id}
               className="group relative flex flex-col justify-between p-8 rounded-2xl bg-zinc-950 border border-zinc-800/80 hover:border-zinc-600 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"

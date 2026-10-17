@@ -69,10 +69,10 @@ export const AboutSection: React.FC = () => {
                 Get in Touch
               </a>
               <a
-                href="#portfolio"
+                href="#education"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold uppercase tracking-wider hover:bg-zinc-800 hover:text-white transition-colors"
               >
-                View Selected Works
+                View Education & Background
               </a>
             </div>
           </div>

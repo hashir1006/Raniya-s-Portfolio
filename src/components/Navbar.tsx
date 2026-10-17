@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isAnimated = true }) => {
   const navLinks = [
     { name: "About me", href: "#about" },
     { name: "Skills", href: "#skills" },
-    { name: "Portfolio", href: "#portfolio" },
+    { name: "Education", href: "#education" },
   ];
 
   return (

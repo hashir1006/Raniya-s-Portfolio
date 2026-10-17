@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Hero } from "@/components/Hero";
 import { AboutSection } from "@/components/AboutSection";
 import { SkillsSection } from "@/components/SkillsSection";
-import { PortfolioSection } from "@/components/PortfolioSection";
+import { EducationSection } from "@/components/EducationSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { Logo } from "@/components/Logo";
@@ -77,7 +77,7 @@ export default function Home() {
       {/* ======================================================== */}
       <AboutSection />
       <SkillsSection />
-      <PortfolioSection />
+      <EducationSection />
       <ContactSection />
       <Footer />
     </main>

@@ -1,12 +1,22 @@
-export interface Project {
+export interface EducationItem {
   id: string;
-  title: string;
-  subtitle: string;
+  period: string;
+  qualification: string;
+  degree: string;
+  institution: string;
+  boardOrUniversity: string;
   description: string;
-  tags: string[];
-  image?: string;
-  githubUrl?: string;
-  liveUrl?: string;
+  scoreLabel?: string;
+  score?: string;
+  keySubjects?: string[];
+  statusBadge?: string;
+}
+
+export interface AchievementItem {
+  title: string;
+  description: string;
+  metric?: string;
+  tag: string;
 }
 
 export interface SkillCategory {
@@ -16,6 +26,17 @@ export interface SkillCategory {
     level?: string;
     icon?: string;
   }[];
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+  image?: string;
+  githubUrl?: string;
+  liveUrl?: string;
 }
 
 export interface PortfolioData {
@@ -36,7 +57,10 @@ export interface PortfolioData {
     href: string;
   }[];
   skills: SkillCategory[];
-  projects: Project[];
+  projects?: Project[];
+  education: EducationItem[];
+  achievements: AchievementItem[];
+  academicInterests: string[];
   contact: {
     heading: string;
     description: string;
@@ -64,7 +88,7 @@ export const portfolioData: PortfolioData = {
   navigation: [
     { label: "About me", href: "#about" },
     { label: "Skills", href: "#skills" },
-    { label: "Portfolio", href: "#portfolio" },
+    { label: "Education", href: "#education" },
   ],
   skills: [
     {
@@ -101,34 +125,89 @@ export const portfolioData: PortfolioData = {
       ],
     },
   ],
-  projects: [
+  projects: [],
+  education: [
     {
-      id: "project-1",
-      title: "Lumina Design System",
-      subtitle: "Component Library & Token Engine",
-      description: "An accessible, themeable design system built with React, TypeScript, and Tailwind CSS. Features over 40 customizable components with fluid micro-interactions.",
-      tags: ["React", "TypeScript", "Tailwind CSS", "Motion"],
-      githubUrl: "https://github.com/raniya-kazi/lumina-design-system",
-      liveUrl: "https://lumina-demo.example.com",
+      id: "edu-be",
+      period: "2023–2028 · Expected",
+      qualification: "Undergraduate Degree",
+      degree: "Bachelor of Engineering (B.E.)",
+      institution: "M. H. Saboo Siddik College of Engineering",
+      boardOrUniversity: "University of Mumbai · Mumbai, Maharashtra",
+      description: "Pursuing an engineering degree focused on Artificial Intelligence, Machine Learning, software engineering, and the development of practical technology solutions.",
+      statusBadge: "Currently Pursuing · AI & ML",
+      keySubjects: [
+        "AI & ML",
+        "Data Structures and Algorithms",
+        "DBMS",
+        "Operating Systems",
+        "Web Development",
+      ],
     },
     {
-      id: "project-2",
-      title: "Aura Creative Studio",
-      subtitle: "Editorial Portfolio & Motion Showcase",
-      description: "High-performance digital presence for an architecture and design studio. Implemented smooth diagonal transitions, custom cursor physics, and lazy-loaded galleries.",
-      tags: ["Next.js", "Motion", "Tailwind CSS"],
-      githubUrl: "https://github.com/raniya-kazi/aura-creative",
-      liveUrl: "https://aura-studio.example.com",
+      id: "edu-hsc",
+      period: "2021–2023",
+      qualification: "Class XII",
+      degree: "Higher Secondary Certificate (HSC)",
+      institution: "Sample College of Science, Mumbai, Maharashtra",
+      boardOrUniversity: "Maharashtra State Board (MSBSHSE)",
+      description: "Built a solid academic foundation in mathematics, physics, and computer science, developing rigorous analytical thinking and problem-solving skills.",
+      scoreLabel: "Percentage",
+      score: "78.50%",
+      keySubjects: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
     },
     {
-      id: "project-3",
-      title: "OmniFlow Dashboard",
-      subtitle: "SaaS Analytics & Workspace",
-      description: "Real-time analytics dashboard with interactive data visualization, dark/light theme persistence, and keyboard-first navigation shortcuts.",
-      tags: ["TypeScript", "Next.js", "Chart.js", "Tailwind"],
-      githubUrl: "https://github.com/raniya-kazi/omniflow-app",
-      liveUrl: "https://omniflow.example.com",
+      id: "edu-ssc",
+      period: "2020–2021",
+      qualification: "Class X",
+      degree: "Secondary School Certificate (SSC)",
+      institution: "Sample English High School, Mumbai, Maharashtra",
+      boardOrUniversity: "Maharashtra State Board (MSBSHSE)",
+      description: "Developed a strong academic foundation in mathematics, science, English, and logical reasoning.",
+      scoreLabel: "Percentage",
+      score: "85.20%",
+      keySubjects: ["Mathematics", "Science", "English", "Social Sciences"],
     },
+    {
+      id: "edu-cet",
+      period: "2023 · Entrance Examination",
+      qualification: "State Level Entrance",
+      degree: "MHT-CET (Maharashtra Common Entrance Test)",
+      institution: "State CET Cell, Maharashtra",
+      boardOrUniversity: "Government of Maharashtra",
+      description: "State-level engineering entrance examination used as qualification for undergraduate engineering admissions across Maharashtra.",
+      scoreLabel: "Percentile",
+      score: "82.45",
+      keySubjects: ["Physics", "Chemistry", "Mathematics"],
+    },
+  ],
+  achievements: [
+    {
+      title: "18+ Final-Round Hackathons",
+      description: "Active competitor across national-level engineering and technology hackathons with strong problem-solving under pressure.",
+      metric: "18+",
+      tag: "Competitions",
+    },
+    {
+      title: "Team Leadership",
+      description: "Served as team leader across multiple hackathon teams, directing product vision, architecture, and frontend execution.",
+      metric: "Lead",
+      tag: "Leadership",
+    },
+    {
+      title: "2 Hackathon Wins",
+      description: "Secured top podium finishes and accolades for building practical AI/ML and web applications.",
+      metric: "2 Wins",
+      tag: "Accolades",
+    },
+  ],
+  academicInterests: [
+    "AI/ML Applications",
+    "Full-Stack Development",
+    "Android Apps",
+    "Software Engineering",
+    "Real-World Technology Solutions",
+    "Human-Computer Interaction",
   ],
   contact: {
     heading: "Let's work together",
